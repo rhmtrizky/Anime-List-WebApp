@@ -10,11 +10,10 @@ const PageUser = async () => {
       user_email: user?.email,
     },
   });
-  console.log('collection', collection);
 
   return (
     <div className="w-full border-color-accent p-3">
-      <div className="flex flex-col items-center gap-3 mt-8">
+      <div className="flex flex-col items-center gap-3 mt-2">
         <h1 className="text-color-primary font-bold text-2xl">Your Profile</h1>
         <Avatar
           className="border-2 border-color-primary"

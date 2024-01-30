@@ -1,7 +1,7 @@
 import { getAnimeData } from '@/libs/api';
 import YoutubePlayer from '@/components/Utilities/YoutubePlayer';
 import Image from 'next/image';
-import CollectionButton from '@/components/AnimeList/CollectionButton';
+import CollectionButton from '@/components/AnimeList/AddCollectionButton';
 import authUserSession from '@/libs/auth';
 import prisma from '@/libs/prisma';
 
@@ -14,7 +14,7 @@ const DetailAnime = async ({ params: { id } }) => {
       user_email: user?.email,
     },
   });
-  console.log('check collection', collection);
+
   return (
     <>
       <div className="flex flex-col p-3">

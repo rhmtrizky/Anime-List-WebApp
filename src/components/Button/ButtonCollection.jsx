@@ -3,14 +3,18 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { GrFavorite } from 'react-icons/gr';
+import DeleteCollectionButton from '@/app/user/DeleteCollectionButton';
 
 const ButtonUser = ({ collection }) => {
   const [showCollection, setShowCollection] = useState(true);
   const [showComment, setShowComment] = useState(false);
-  console.log('collection user', collection);
+  const router = useRouter();
   const handleShowCollection = () => {
     setShowCollection((prevState) => !prevState);
   };
+
   return (
     <>
       <div className="flex justify-center items-center gap-3">
@@ -27,9 +31,12 @@ const ButtonUser = ({ collection }) => {
           {collection?.map((item) => {
             return (
               <div
-                className="shadow-xl text-color-primary hover:text-color-accent transition-all cursor-pointer"
+                className="shadow-xl text-color-primary transition-all cursor-pointer"
                 key={item.mal_id}
               >
+                <div className="relative top-5 right-1 flex justify-end">
+                  <DeleteCollectionButton collection={item} />
+                </div>
                 <Link href={`/anime/${item.anime_mal_id}`}>
                   <Image
                     src={item.anime_image}
@@ -37,7 +44,7 @@ const ButtonUser = ({ collection }) => {
                     height="350"
                     width="350"
                   />
-                  <p className="p-4 md:text-md text-sm font-bold">{item.anime_title}</p>
+                  <p className="p-4 md:text-md text-sm font-bold  hover:text-color-accent">{item.anime_title}</p>
                 </Link>
               </div>
             );

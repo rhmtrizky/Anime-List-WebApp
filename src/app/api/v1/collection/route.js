@@ -1,4 +1,6 @@
+import authUserSession from '@/libs/auth';
 import prisma from '@/libs/prisma';
+import { NextResponse } from 'next/server';
 
 export const POST = async (request) => {
   const { anime_mal_id, user_email, anime_image, anime_title } = await request.json();
@@ -11,4 +13,15 @@ export const POST = async (request) => {
   } else {
     return Response.json({ status: 200, isCreated: true });
   }
+};
+
+export const GET = async () => {
+  const user = await authUserSession();
+
+  const res = await prisma.collection.findMany({
+    where: {
+      user_email: user?.email,
+    },
+  });
+  return NextResponse.json(res);
 };

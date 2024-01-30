@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-const CollectionButton = ({ anime_mal_id, user_email, anime_image, anime_title }) => {
+const AddCollectionButton = ({ anime_mal_id, user_email, anime_image, anime_title }) => {
   const router = useRouter();
   const [isCollection, setIsCollection] = useState(false);
   const handleAddCollection = async (e) => {
@@ -19,12 +19,15 @@ const CollectionButton = ({ anime_mal_id, user_email, anime_image, anime_title }
       body: JSON.stringify(data),
     });
     const collection = await response.json();
-    console.log({ collection });
     if (collection.status == 200) {
       setIsCollection(collection.isCreated);
+      setTimeout(() => {
+        setIsCollection(false);
+        router.refresh();
+      }, 3000);
     }
-    router.refresh();
   };
+
   return (
     <>
       {isCollection ? (
@@ -41,4 +44,4 @@ const CollectionButton = ({ anime_mal_id, user_email, anime_image, anime_title }
   );
 };
 
-export default CollectionButton;
+export default AddCollectionButton;

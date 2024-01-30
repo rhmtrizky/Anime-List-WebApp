@@ -19,16 +19,16 @@ const InputNavbar = () => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative md:left-10 left-0 rounded w-80">
       <input
-        className="px-2 py-1 rounded  w-full"
+        className="px-2 py-1 rounded w-full"
         // placeholder="search anime"
         placeholder="search anime"
         ref={searchRef}
         onKeyDown={handleSearch}
       />
       <button
-        className="absolute end-2 top-1"
+        className="absolute end-2 top-0.5"
         onClick={handleSearch}
       >
         <CiSearch

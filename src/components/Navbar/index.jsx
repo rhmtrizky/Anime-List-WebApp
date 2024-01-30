@@ -7,7 +7,7 @@ const Navbar = () => {
     <header>
       <div className="bg-color-accent items-center flex md:flex-row flex-col p-3 justify-between md:align-center gap-2">
         <Link href="/">
-          <p className="font-bold text-2xl text-white text-center">ANIMEKUY</p>
+          <p className="font-bold text-2xl text-color-dark text-center">ANIMEKUY</p>
         </Link>
         <InputNavbar />
         <AuthButtonAction />
