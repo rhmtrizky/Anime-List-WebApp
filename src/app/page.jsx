@@ -7,7 +7,6 @@ const Page = async () => {
   const topAnime = await getAnimeData('top/anime', 'limit=10');
   let recommendedAnime = await getNestedAnimeResponse('recommendations/anime', 'entry');
   recommendedAnime = reproduce(recommendedAnime, 10);
-
   const user = await authUserSession();
 
   return (

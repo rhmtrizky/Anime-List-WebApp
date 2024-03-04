@@ -3,9 +3,9 @@ import prisma from '@/libs/prisma';
 import { NextResponse } from 'next/server';
 
 export const POST = async (request) => {
-  const { anime_mal_id, user_email, anime_image, anime_title } = await request.json();
+  const { anime_mal_id, anime_image, anime_title, userId } = await request.json();
 
-  const data = { anime_mal_id, user_email, anime_image, anime_title };
+  const data = { anime_mal_id, anime_image, anime_title, userId };
 
   const res = await prisma.collection.create({ data });
   if (!res) {
@@ -20,7 +20,7 @@ export const GET = async () => {
 
   const res = await prisma.collection.findMany({
     where: {
-      user_email: user?.email,
+      userId: user?.id,
     },
   });
   return NextResponse.json(res);

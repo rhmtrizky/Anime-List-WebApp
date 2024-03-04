@@ -3,16 +3,16 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-const AddCollectionButton = ({ anime_mal_id, user_email, anime_image, anime_title }) => {
+const AddCollectionButton = ({ anime_mal_id, anime_image, anime_title, userId }) => {
   const router = useRouter();
   const [isCollection, setIsCollection] = useState(false);
   const handleAddCollection = async (e) => {
     e.preventDefault();
     const data = {
       anime_mal_id,
-      user_email,
       anime_image,
       anime_title,
+      userId,
     };
     const response = await fetch('/api/v1/collection', {
       method: 'POST',
@@ -21,9 +21,9 @@ const AddCollectionButton = ({ anime_mal_id, user_email, anime_image, anime_titl
     const collection = await response.json();
     if (collection.status == 200) {
       setIsCollection(collection.isCreated);
+      router.refresh();
       setTimeout(() => {
         setIsCollection(false);
-        router.refresh();
       }, 3000);
     }
   };

@@ -1,11 +1,10 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { GrFavorite } from 'react-icons/gr';
 
 const DeleteCollectionButton = ({ collection }) => {
-  console.log('yo', collection);
   const [modal, setModal] = useState(false);
   const router = useRouter();
   const handleOpenModal = () => {
@@ -16,9 +15,9 @@ const DeleteCollectionButton = ({ collection }) => {
     await fetch(`/api/v1/collection/${collection_id}`, {
       method: 'DELETE',
     });
-
     router.refresh();
   };
+
   return (
     <div>
       <button

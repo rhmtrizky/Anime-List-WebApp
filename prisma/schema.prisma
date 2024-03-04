@@ -11,12 +11,31 @@ datasource db {
 }
 
 
+model User {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  password String?
+  username  String?
+  image String?
+  collections Collection[]
+  comments Comment[]
+}
+
 model Collection {
   id                Int @id @default(autoincrement())
   anime_mal_id      String
-  anime_image       String?
-  anime_title       String?
-  user_email        String 
-
-  @@unique([user_email, anime_mal_id])
+  anime_image       String
+  anime_title       String
+  user User @relation(fields: [userId], references: [id])
+  userId Int
 }
+
+model Comment {
+  id                Int @id @default(autoincrement())
+  anime_mal_id      String
+  anime_title       String
+  comment           String     
+  user User @relation(fields: [userId], references: [id])
+  userId Int
+}
+

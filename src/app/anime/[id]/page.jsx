@@ -4,14 +4,22 @@ import Image from 'next/image';
 import CollectionButton from '@/components/AnimeList/AddCollectionButton';
 import authUserSession from '@/libs/auth';
 import prisma from '@/libs/prisma';
+import CommentInput from '@/components/AnimeList/CommentInput';
+import Comment from '@/components/AnimeList/Comment';
 
 const DetailAnime = async ({ params: { id } }) => {
   const detailAnime = await getAnimeData(`anime/${id}`);
   const user = await authUserSession();
+
+  const getUser = await prisma.user.findUnique({
+    where: {
+      email: user?.email,
+    },
+  });
   const collection = await prisma.collection.findFirst({
     where: {
       anime_mal_id: id,
-      user_email: user?.email,
+      userId: user?.id,
     },
   });
 
@@ -19,13 +27,13 @@ const DetailAnime = async ({ params: { id } }) => {
     <>
       <div className="flex flex-col p-3">
         <div className="flex p-3 justify-between">
-          <h1 className="text-color-primary text-2xl">{detailAnime.data.title}</h1>
+          <h1 className="text-color-primary text-2xl">{detailAnime?.data?.title}</h1>
           {!collection && (
             <CollectionButton
               anime_mal_id={id}
-              user_email={user.email}
               anime_image={detailAnime?.data?.images?.webp?.image_url}
               anime_title={detailAnime?.data?.title}
+              userId={getUser?.id}
             />
           )}
         </div>
@@ -66,6 +74,18 @@ const DetailAnime = async ({ params: { id } }) => {
           />
           <p className="text-justify">{detailAnime.data.synopsis}</p>
         </div>
+      </div>
+      <div>
+        <Comment
+          anime_mal_id={id}
+          user_image={user?.image}
+          user={getUser}
+        />
+        <CommentInput
+          anime_mal_id={id}
+          anime_title={detailAnime?.data?.title}
+          userId={getUser.id}
+        />
       </div>
 
       <div>
