@@ -27,10 +27,10 @@ const CommentInput = ({ anime_mal_id, anime_title, userId }) => {
     const collection = await response.json();
     if (collection.status == 200) {
       setIsComment(collection.isCreated);
+      router.refresh();
       setTimeout(() => {
         setIsComment(false);
         setComment('');
-        router.refresh();
       }, 3000);
     }
   };
@@ -44,11 +44,24 @@ const CommentInput = ({ anime_mal_id, anime_title, userId }) => {
       />
       <div className="flex justify-start">
         {isComment ? (
-          <button className="btn bg-color-accent text-color-dark">Submitted</button>
+          <button
+            className="btn bg-color-accent text-color-dark"
+            disabled
+          >
+            Submitted
+          </button>
+        ) : comment == '' ? (
+          <button
+            disabled={true}
+            onClick={handleAddComment}
+            className="btn bg-color-accent text-color-dark hover:bg-color-accent2"
+          >
+            Post Comment
+          </button>
         ) : (
           <button
             onClick={handleAddComment}
-            className="btn bg-color-accent text-color-dark"
+            className="btn bg-color-accent text-color-dark hover:bg-color-accent2"
           >
             Post Comment
           </button>

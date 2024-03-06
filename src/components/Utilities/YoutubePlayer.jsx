@@ -7,8 +7,8 @@ import { useState } from 'react';
 const YoutubePlayer = ({ youtubeId }) => {
   const [isOpen, setIsOpen] = useState(true);
   const opts = {
-    height: '300',
-    width: '380',
+    height: '250',
+    width: '320',
   };
   const onPlayerReady = (event) => {
     event.target.pauseVideo();
