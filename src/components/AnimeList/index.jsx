@@ -12,6 +12,7 @@ const AnimeList = ({ api }) => {
           >
             <Link href={`/anime/${item.mal_id}`}>
               <Image
+                className="rounded"
                 src={item.images.webp.image_url}
                 alt="..."
                 height="350"

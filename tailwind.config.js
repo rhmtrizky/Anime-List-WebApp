@@ -18,6 +18,8 @@ module.exports = {
         dark: '#222831',
         red: '#F80000',
         cover: '#222831',
+        blue: '#484BFE',
+        blue2: '#262AF7',
       },
     },
   },

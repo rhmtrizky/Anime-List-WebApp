@@ -20,7 +20,7 @@ const Populer = () => {
   }, [page]);
 
   return (
-    <>
+    <div className="min-h-screen">
       <HeaderMenu title={`Anime Terpopuler #${page}`} />
       <AnimeList api={topAnime} />
       <Pagination
@@ -28,7 +28,7 @@ const Populer = () => {
         setPage={setPage}
         lastPage={topAnime.pagination?.last_visible_page}
       />
-    </>
+    </div>
   );
 };
 

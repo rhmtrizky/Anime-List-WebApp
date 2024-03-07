@@ -8,7 +8,7 @@ const YoutubePlayer = ({ youtubeId }) => {
   const [isOpen, setIsOpen] = useState(true);
   const opts = {
     height: '250',
-    width: '320',
+    width: '350',
   };
   const onPlayerReady = (event) => {
     event.target.pauseVideo();

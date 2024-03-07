@@ -6,6 +6,7 @@ import authUserSession from '@/libs/auth';
 import prisma from '@/libs/prisma';
 import CommentInput from '@/components/AnimeList/CommentInput';
 import Comment from '@/components/AnimeList/Comment';
+import Link from 'next/link';
 
 const DetailAnime = async ({ params: { id } }) => {
   const detailAnime = await getAnimeData(`anime/${id}`);
@@ -37,31 +38,31 @@ const DetailAnime = async ({ params: { id } }) => {
         </div>
         <div className="md:w-4/5 sm:w-3/5 w-full">
           <div className="flex flex-col gap-3">
-            <div className="flex flex-col">
-              <div className="flex justify-between items-center">
+            <div className="flex md:flex-row sm:flex-row flex-col justify-between gap-2">
+              <div className="flex flex-col">
                 <h1 className="text-color-primary text-3xl font-bold">{detailAnime?.data?.title}</h1>
                 <div>
-                  {!collection && (
-                    <CollectionButton
-                      anime_mal_id={id}
-                      anime_image={detailAnime?.data?.images?.webp?.image_url}
-                      anime_title={detailAnime?.data?.title}
-                      userId={getUser?.id}
-                    />
-                  )}
+                  <div className="flex gap-2">
+                    <h3 className="font-semibold text-color-primary2">Duration :</h3>
+                    <h3>{detailAnime?.data?.duration}</h3>
+                  </div>
+                  <div className="flex gap-2">
+                    <h3 className="font-semibold text-color-primary2">Genre :</h3>
+                    {detailAnime?.data?.genres.map((genre) => (
+                      <h3>{genre.name}</h3>
+                    ))}
+                  </div>
                 </div>
               </div>
               <div>
-                <div className="flex gap-2">
-                  <h3 className="font-semibold text-color-primary2">Duration :</h3>
-                  <h3>{detailAnime?.data?.duration}</h3>
-                </div>
-                <div className="flex gap-2">
-                  <h3 className="font-semibold text-color-primary2">Genre :</h3>
-                  {detailAnime?.data?.genres.map((genre) => (
-                    <h3>{genre.name}</h3>
-                  ))}
-                </div>
+                {!collection && (
+                  <CollectionButton
+                    anime_mal_id={id}
+                    anime_image={detailAnime?.data?.images?.webp?.image_url}
+                    anime_title={detailAnime?.data?.title}
+                    userId={getUser?.id}
+                  />
+                )}
               </div>
             </div>
             <div>
@@ -94,6 +95,9 @@ const DetailAnime = async ({ params: { id } }) => {
                 </div>
               </div>
             </div>
+            <Link href={detailAnime.data.url}>
+              <button className="btn bg-color-blue text-color-primary font-bold w-full hover:bg-color-blue2">Watch Full Movie</button>
+            </Link>
           </div>
         </div>
       </div>
