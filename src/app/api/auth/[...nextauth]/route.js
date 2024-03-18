@@ -15,7 +15,7 @@ export const authOption = {
       type: 'credentials',
       name: 'Credentials',
       credentials: {
-        email: { label: 'email', type: 'email' },
+        email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {

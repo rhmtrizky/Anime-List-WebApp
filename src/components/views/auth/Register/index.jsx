@@ -95,7 +95,7 @@ const RegisterView = () => {
 
         <div className="flex gap-1 text-sm">
           <p>Have an account? </p>
-          <Link href={'/login'}>
+          <Link href={'/auth/login'}>
             <p className="font-semibold text-color-green italic">Login</p>
             {/* <button onClick={() => signIn()}>Login</button> */}
           </Link>

@@ -46,7 +46,7 @@ const LoginView = () => {
         action=""
         onSubmit={handleSubmit}
       >
-        <h1 className="flex justify-center font-bold text-2xl my-3">View</h1>
+        <h1 className="flex justify-center font-bold text-2xl my-3">Login</h1>
         <Input
           label="email"
           type="email"

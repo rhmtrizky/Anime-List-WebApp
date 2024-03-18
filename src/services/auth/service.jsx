@@ -9,8 +9,6 @@ export async function signIn(email) {
     });
 
     if (user) {
-      console.log('user', user);
-
       return user;
     } else {
       return null;
