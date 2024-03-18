@@ -20,18 +20,31 @@ const CommentInput = ({ anime_mal_id, anime_title, userId }) => {
       comment,
       userId,
     };
-    const response = await fetch('/api/v1/comment', {
-      method: 'POST',
-      body: JSON.stringify(data),
-    });
-    const collection = await response.json();
-    if (collection.status == 200) {
-      setIsComment(collection.isCreated);
-      router.refresh();
-      setTimeout(() => {
-        setIsComment(false);
+
+    try {
+      const response = await fetch('/api/v1/comment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        router.refresh();
+        setIsComment(true);
         setComment('');
-      }, 3000);
+        setTimeout(() => {
+          setIsComment(false);
+        }, 3000);
+      } else {
+        // Handle error response
+        console.error(result.message);
+      }
+    } catch (error) {
+      // Handle network error
+      console.error('Network error:', error);
     }
   };
   return (
