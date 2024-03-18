@@ -20,31 +20,18 @@ const CommentInput = ({ anime_mal_id, anime_title, userId }) => {
       comment,
       userId,
     };
-
-    try {
-      const response = await fetch('/api/v1/comment', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      const result = await response.json();
-      if (response.ok) {
-        router.refresh();
-        setIsComment(true);
+    const response = await fetch('/api/v1/comment', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+    const collection = await response.json();
+    if (collection.status == 200) {
+      setIsComment(collection.isCreated);
+      router.refresh();
+      setTimeout(() => {
+        setIsComment(false);
         setComment('');
-        setTimeout(() => {
-          setIsComment(false);
-        }, 3000);
-      } else {
-        // Handle error response
-        console.error(result.message);
-      }
-    } catch (error) {
-      // Handle network error
-      console.error('Network error:', error);
+      }, 3000);
     }
   };
   return (
@@ -62,6 +49,14 @@ const CommentInput = ({ anime_mal_id, anime_title, userId }) => {
             disabled
           >
             Submitted
+          </button>
+        ) : comment == '' ? (
+          <button
+            disabled={true}
+            onClick={handleAddComment}
+            className="btn bg-color-accent text-color-dark hover:bg-color-accent2"
+          >
+            Post Comment
           </button>
         ) : (
           <button
