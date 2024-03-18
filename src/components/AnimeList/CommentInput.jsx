@@ -50,14 +50,6 @@ const CommentInput = ({ anime_mal_id, anime_title, userId }) => {
           >
             Submitted
           </button>
-        ) : comment == '' ? (
-          <button
-            disabled={true}
-            onClick={handleAddComment}
-            className="btn bg-color-accent text-color-dark hover:bg-color-accent2"
-          >
-            Post Comment
-          </button>
         ) : (
           <button
             onClick={handleAddComment}
