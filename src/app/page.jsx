@@ -3,15 +3,21 @@ import CarouselPopulerAnime from '@/components/AnimeList/CarouselPopulerAnime';
 import Header from '../components/AnimeList/Header';
 import { getAnimeData, getNestedAnimeResponse, reproduce } from '../libs/api';
 import authUserSession from '@/libs/auth';
+import Image from 'next/image';
+import RandomAnime from '@/components/AnimeList/RandomAnime';
 
 const Page = async () => {
   const topAnime = await getAnimeData('top/anime', 'limit=10');
+
+  const user = await authUserSession();
+
+  // recommendation anime
   let recommendedAnime = await getNestedAnimeResponse('recommendations/anime', 'entry');
   recommendedAnime = reproduce(recommendedAnime, 10);
-  const user = await authUserSession();
 
   const theMostPopuler = recommendedAnime.data.slice(0, 4);
   const populerOfTheDay = recommendedAnime.data.slice(6, 10);
+  /// --- ///
 
   return (
     <>
@@ -20,20 +26,28 @@ const Page = async () => {
       </section>
       <section>
         <Header
-          title="Paling Populer"
+          title="The most populer"
           linkHref="/populer"
-          linkTitle="Lihat Semua"
+          linkTitle="See All"
         />
         <AnimeList
           api={topAnime}
           user={user}
         />
       </section>
-      <section className="m-3">
-        <CarouselPopulerAnime data={populerOfTheDay} />
-      </section>
+      {user ? (
+        <section>
+          <Header title={`For you ${user?.name}`} />
+          <RandomAnime />
+        </section>
+      ) : (
+        <section className="m-3">
+          <CarouselPopulerAnime data={populerOfTheDay} />
+        </section>
+      )}
+
       <section>
-        <Header title="Rekomendasi" />
+        <Header title="Recommendation" />
         <AnimeList api={recommendedAnime} />
       </section>
     </>

@@ -17,7 +17,7 @@ const AuthButtonAction = async () => {
         </div>
       ) : null}
       <div className="flex md:justify-end md:w-44">
-        <div className="bg-color-dark text-color-primary px-4 py-1 rounded ">
+        <div className="bg-color-dark text-color-primary px-4 py-1 rounded text-sm">
           <Link href={actionURL}>{actionLable}</Link>
         </div>
       </div>
