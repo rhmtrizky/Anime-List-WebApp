@@ -12,7 +12,6 @@ export const POST = async (request) => {
     const res = await prisma.comment.create({ data });
     return Response.json({ status: 200, message: 'Comment posted successfully.', comment: res });
   } catch (error) {
-    console.error('Error:', error);
     return Response.json({ status: 500, message: 'An error occurred while posting the comment.', error: error.message });
   }
 };

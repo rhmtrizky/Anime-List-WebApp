@@ -24,7 +24,6 @@ const LoginView = () => {
       password: form.password.value,
       callbackUrl,
     });
-    console.log(res);
 
     if (!res?.error) {
       push(callbackUrl);

@@ -11,12 +11,12 @@ export const DELETE = async (request, { params: { id } }) => {
       },
     });
     if (res) {
-      response.json({ status: 200, isDeleted: true });
+      return Response.json({ status: 200, isCreated: true });
     } else {
-      response.json({ status: 500, isDeleted: false });
+      return Response.json({ status: 500, isDeleted: false });
     }
   } catch (error) {
     console.error(error);
-    response.status(500).json({ status: 500, isDeleted: false });
+    return Response.json({ status: 500, isDeleted: false });
   }
 };

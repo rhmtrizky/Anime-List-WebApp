@@ -1,21 +1,31 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { GrFavorite } from 'react-icons/gr';
 
 const DeleteCollectionButton = ({ collection }) => {
   const [modal, setModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const handleOpenModal = () => {
     setModal(!modal);
   };
-
   const handleDeleteCollection = async (collection_id) => {
-    await fetch(`/api/v1/collection/${collection_id}`, {
-      method: 'DELETE',
-    });
-    router.refresh();
+    try {
+      setIsLoading(true);
+      const response = await fetch(`/api/v1/collection/${collection_id}`, {
+        method: 'DELETE',
+      });
+      if (response.status == 200) {
+        router.refresh();
+        setIsLoading(false);
+      } else {
+        setIsLoading(false);
+      }
+    } catch (err) {
+      console.error('Error:', err);
+    }
   };
 
   return (
@@ -50,7 +60,7 @@ const DeleteCollectionButton = ({ collection }) => {
               className="btn btn-primary"
               onClick={() => handleDeleteCollection(collection.id)}
             >
-              Delete
+              <span>{isLoading ? 'Loading...' : 'Delete'}</span>
             </button>
           </div>
         </div>

@@ -6,8 +6,10 @@ import { useState } from 'react';
 const AddCollectionButton = ({ anime_mal_id, anime_image, anime_title, userId }) => {
   const router = useRouter();
   const [isCollection, setIsCollection] = useState(false);
+  const [isLoading, setISLoading] = useState(false);
   const handleAddCollection = async (e) => {
     e.preventDefault();
+    setISLoading(true);
     const data = {
       anime_mal_id,
       anime_image,
@@ -20,11 +22,15 @@ const AddCollectionButton = ({ anime_mal_id, anime_image, anime_title, userId })
     });
     const collection = await response.json();
     if (collection.status == 200) {
+      setISLoading(false);
       setIsCollection(collection.isCreated);
       router.refresh();
       setTimeout(() => {
         setIsCollection(false);
       }, 3000);
+    } else {
+      setISLoading(false);
+      setIsCollection(collection.isCreated);
     }
   };
 
@@ -37,7 +43,7 @@ const AddCollectionButton = ({ anime_mal_id, anime_image, anime_title, userId })
           onClick={handleAddCollection}
           className="text-color-dark bg-color-accent px-2 py-1 rounded text-sm"
         >
-          Add To Collection
+          <span>{isLoading ? 'Loading...' : 'Add To Collection'}</span>
         </button>
       )}
     </>
