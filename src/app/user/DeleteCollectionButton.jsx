@@ -20,8 +20,10 @@ const DeleteCollectionButton = ({ collection }) => {
       if (response.status == 200) {
         router.refresh();
         setIsLoading(false);
+        setModal(false);
       } else {
         setIsLoading(false);
+        setModal(false);
       }
     } catch (err) {
       console.error('Error:', err);
@@ -45,10 +47,7 @@ const DeleteCollectionButton = ({ collection }) => {
       <div className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Are you sure to remove "{collection.anime_title}" from your collection? </h3>
-          <div
-            className="modal-action"
-            onClick={handleOpenModal}
-          >
+          <div className="modal-action">
             <button
               type="button"
               className="btn"
